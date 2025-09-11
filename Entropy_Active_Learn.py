@@ -554,13 +554,9 @@ st.markdown("""
     💡 De KPI em KPI, desenhamos o **modelo que você precisa**.  
     📈 Do campo ao mercado digital, transformamos incerteza em clareza.  
 
-    👉 Entre em contato e vamos descobrir juntos as **chaves escondidas do seu negócio** contato@plexonatural.com.
-    """)
-except Exception as e:
-    st.error(f"Ocorreu um erro na apresentação dos resultados: {e}") 
-
-👉 Entre em contato e vamos descobrir juntos as **chaves escondidas do seu negócio**  
-[contato@plexonatural.com](mailto:contato@plexonatural.com).
+    👉 👉 Entre em contato e vamos descobrir juntos as **chaves escondidas do seu negócio**  
+[contato@plexonatural.com](mailto:contato@plexonatural.com.
+    """).
 """ except Exception as e:
     st.error(f"Ocorreu um erro na apresentação dos resultados: {e}")
                 
