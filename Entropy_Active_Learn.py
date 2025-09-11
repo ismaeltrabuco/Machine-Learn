@@ -619,7 +619,133 @@ def main():
                         for idx, (_, row) in enumerate(top_features.iterrows(), 1):
                             uncertainty_level = "📍 Baixa" if row['sd'] < row['mean']/3 else "⚠️ Alta"
                             impacto = "positivo 📈" if row['mean'] > 0 else "negativo 📉"
-                            st.write(f"**{idx}. {row['Feature']}**: Impacto {impacto} de R
+                            st.write(f"**{idx}. {row['Feature']}**: Impacto {impacto} de R$ {row['mean']:,.0f} (±{row['sd']:,.0f}) - Incerteza: {uncertainty_level}")
+                        
+                        # Features com alta incerteza
+                        high_uncertainty = bayesian_results[bayesian_results['sd'] > bayesian_results['mean'].abs()/2]
+                        if len(high_uncertainty) > 0:
+                            st.write("**⚠️ Fatores que Precisam de Mais Dados:**")
+                            for _, row in high_uncertainty.iterrows():
+                                if row['hdi_3%'] < 0 < row['hdi_97%']:
+                                    rec = "❓ Efeito indeterminado - coletar mais dados"
+                                elif row['hdi_3%'] > 0:
+                                    rec = "📈 Provavelmente positivo"
+                                else:
+                                    rec = "📉 Provavelmente negativo"
+                                st.write(f"• **{row['Feature']}**: {rec} (HDI: [R$ {row['hdi_3%']:,.0f}, R$ {row['hdi_97%']:,.0f}])")
+                
+                progress_bar.progress(90)
+                
+                # 5. Visualizações
+                status_text.text("📊 Criando visualizações...")
+                
+                st.header("4️⃣ Visualizações Comparativas")
+                
+                # Gráfico de comparação
+                fig1 = create_comparison_plot(mle_results, map_results, bayesian_results)
+                st.pyplot(fig1)
+                
+                # Gráfico de incerteza (se Bayesian disponível)
+                if bayesian_results is not None:
+                    fig2 = create_uncertainty_plot(bayesian_results)
+                    if fig2:
+                        st.pyplot(fig2)
+
+                # 6. Entropia
+                status_text.text("📊 Calculando entropia dos modelos...")
+                progress_bar.progress(95)
+
+                # Predições dos modelos para análise de entropia
+                X_scaled = scaler.transform(processed_data[features])
+                y_true = processed_data[target]
+                y_pred_mle = mle_model.predict(X_scaled)
+                y_pred_map = map_model.predict(X_scaled)
+
+                # Análise de entropia
+                show_entropy_section(
+                    y_true=y_true,
+                    y_pred_mle=y_pred_mle,
+                    y_pred_map=y_pred_map,
+                    y_pred_bayes=None
+                )
+                
+                # 7. Recomendações para João
+                st.header("6️⃣ Recomendações Estratégicas para João")
+                
+                # Análise dos resultados mais importantes
+                if bayesian_results is not None:
+                    top_factor = bayesian_results.iloc[0]
+                    st.success(f"🌟 **Fator #1 de Impacto:** {top_factor['Feature']}")
+                    st.write(f"Cada unidade de melhoria pode gerar R$ {top_factor['mean']:,.0f} a mais por safra")
+                    
+                    # Recomendações específicas baseadas nos fatores
+                    recommendations = []
+                    for _, row in bayesian_results.head(3).iterrows():
+                        factor = row['Feature']
+                        impact = row['mean']
+                        
+                        if 'clima' in factor.lower() or 'chuva' in factor.lower():
+                            recommendations.append(f"🌦️ **{factor}**: Investir em irrigação ou sistema de captação de água")
+                        elif 'tiktok' in factor.lower():
+                            recommendations.append(f"📱 **{factor}**: Expandir estratégia de marketing digital da neta")
+                        elif 'export' in factor.lower():
+                            recommendations.append(f"🌍 **{factor}**: Focar em conseguir mais contratos de exportação")
+                        elif 'preco' in factor.lower():
+                            recommendations.append(f"💰 **{factor}**: Monitorar preços e timing de venda")
+                        elif 'hectares' in factor.lower():
+                            recommendations.append(f"🌾 **{factor}**: Considerar expansão da área plantada")
+                    
+                    st.write("**🎯 Ações Prioritárias:**")
+                    for rec in recommendations:
+                        st.write(f"• {rec}")
+                
+                # Finalizar
+                progress_bar.progress(100)
+                status_text.text("✅ Análise concluída!")
+                
+                # Mensagem de sucesso
+                st.balloons()
+                st.success("**🌾 Análise completa da Roça do João! Todos os modelos foram executados com sucesso.**")
+                st.success("✨ Imagine o que podemos fazer com **os dados da sua fazenda**.")
+                
+                # Mensagem de contato específica para agronegócio
+                st.markdown("""
+                💡 **Do plantio à colheita, transformamos dados em decisões inteligentes.**  
+                📈 **Da tradição à inovação, otimizamos cada safra com ciência de dados.**  
+
+                👉 **Entre em contato e vamos descobrir juntos os segredos da sua terra**  
+                📧 [contato@plexonatural.com](mailto:contato@plexonatural.com)
+                🌾 **Especialistas em IA para Agronegócio**
+                """)
+                
+                # Download
+                if bayesian_results is not None:
+                    csv_data = bayesian_results.to_csv(index=False)
+                    st.download_button(
+                        label="📥 Baixar Análise Completa da Fazenda",
+                        data=csv_data,
+                        file_name=f"analise_roca_joao_{pd.Timestamp.now().strftime('%Y%m%d_%H%M')}.csv",
+                        mime="text/csv"
+                    )
+                
+            except Exception as e:
+                progress_bar.progress(0)
+                status_text.text("❌ Erro na análise")
+                st.error(f"**Erro durante a análise:** {str(e)}")
+                
+                with st.expander("🔍 Detalhes do Erro"):
+                    import traceback
+                    st.code(traceback.format_exc())
+
+    # Rodapé informativo para agronegócio
+    st.markdown("---")
+    st.markdown("""
+    <div style='text-align: center; color: gray;'>
+    <b>🌾 Roça do João - Inteligência Artificial para o Agronegócio</b><br>
+    <b>Dica:</b> Para melhores resultados, certifique-se de ter dados de pelo menos 20 safras<br>
+    <b>Algoritmos:</b> Scikit-learn (MLE/MAP) + PyMC (Bayesian MCMC) + Análise de Entropia
+    </div>
+    """, unsafe_allow_html=True)
 
 # IMPORTANTE: Só executar main() se for o arquivo principal
 if __name__ == "__main__":
