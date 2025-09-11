@@ -40,10 +40,6 @@ Empresas modernas precisam de **modelos sob medida**:
 não apenas relatórios, mas **ferramentas inteligentes** que revelam padrões, reduzem incertezas e criam novas oportunidades.  
 """)
 
-
-    
-)
-
 def load_bayesian_libs():
     """Carrega bibliotecas Bayesianas apenas quando necessário"""
     try:
