@@ -30,7 +30,6 @@ Aqui vamos comparar o impacto e a incerteza de investir em **TikTok Ads** e **Sn
 O objetivo é ajudá-lo a entender como decisões podem variar de acordo com diferentes cenários — insights que podem não ser óbvios para quem não conhece a área.
 """)
 
-
 st.title("A Alquimia Aplicada ao Seu Negócio")
 st.markdown("""
 ### KPIs como bússolas, dados como chaves escondidas.
@@ -550,15 +549,15 @@ def main():
                 st.balloons()
                 st.success("**Análise completa! Todos os modelos foram executados com sucesso.**")
                 st.success("✨ Imagine o que podemos fazer com **os dados da sua empresa**.")
-st.markdown("""
-    💡 De KPI em KPI, desenhamos o **modelo que você precisa**.  
-    📈 Do campo ao mercado digital, transformamos incerteza em clareza.  
+                
+                # Mensagem de contato
+                st.markdown("""
+                💡 De KPI em KPI, desenhamos o **modelo que você precisa**.  
+                📈 Do campo ao mercado digital, transformamos incerteza em clareza.  
 
-    👉 👉 Entre em contato e vamos descobrir juntos as **chaves escondidas do seu negócio**  
-[contato@plexonatural.com](mailto:contato@plexonatural.com.
-    """).
-""" except Exception as e:
-    st.error(f"Ocorreu um erro na apresentação dos resultados: {e}")
+                👉 Entre em contato e vamos descobrir juntos as **chaves escondidas do seu negócio**  
+                📧 [contato@plexonatural.com](mailto:contato@plexonatural.com)
+                """)
                 
                 # Download
                 if bayesian_results is not None:
@@ -579,7 +578,7 @@ st.markdown("""
                     import traceback
                     st.code(traceback.format_exc())
 
- # Rodapé informativo
+    # Rodapé informativo
     st.markdown("---")
     st.markdown("""
     <div style='text-align: center; color: gray;'>
