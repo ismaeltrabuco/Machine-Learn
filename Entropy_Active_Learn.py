@@ -323,9 +323,8 @@ def create_uncertainty_plot(bayesian_results):
     return fig
 
 def main():
-
-# st.title("A Alquimia Aplicada ao Seu Negócio")
-st.markdown("""
+    # st.title("A Alquimia Aplicada ao Seu Negócio")
+    st.markdown("""
 ### KPIs como bússolas, dados como chaves escondidas.
 Descubra o **ouro** que já existe por trás dos seus números.
 
