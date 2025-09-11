@@ -16,9 +16,7 @@ plt.rcParams['font.sans-serif'] = ['DejaVu Sans', 'Arial', 'Helvetica']
 
 # Configuração da página
 st.set_page_config(
-   st.set_page_config(page_title="Entropy Business Intelligence", page_icon="🔬",
-    layout="wide",
-    initial_sidebar_state="expanded")
+   st.set_page_config(page_title="Entropy Business Intelligence", page_icon="🔬", layout="wide", initial_sidebar_state="expanded")
 
 st.title("A Alquimia Aplicada ao Seu Negócio")
 st.markdown("""
