@@ -16,12 +16,19 @@ plt.rcParams['font.sans-serif'] = ['DejaVu Sans', 'Arial', 'Helvetica']
 
 # Configuração da página
 st.set_page_config(
-   st.set_page_config(
     page_title="Entropy Business Intelligence",
     page_icon="🔬",
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+st.title("🔬 Análise Bayesiana Inteligente")
+st.markdown("""
+### Explore decisões de investimento com ciência de dados
+Este aplicativo mostra um modelo de análise Bayesiana, mas lembre-se: cada negócio é único e requer soluções personalizadas.  
+Aqui vamos comparar o impacto e a incerteza de investir em **TikTok Ads** e **Snapchat Ads**, considerando até fatores inusitados, como as fases da lua 🌙.  
+O objetivo é ajudá-lo a entender como decisões podem variar de acordo com diferentes cenários — insights que podem não ser óbvios para quem não conhece a área.
+""")
 
 
 st.title("A Alquimia Aplicada ao Seu Negócio")
