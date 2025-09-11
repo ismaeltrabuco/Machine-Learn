@@ -30,15 +30,6 @@ Aqui vamos comparar o impacto e a incerteza de investir em **TikTok Ads** e **Sn
 O objetivo é ajudá-lo a entender como decisões podem variar de acordo com diferentes cenários — insights que podem não ser óbvios para quem não conhece a área.
 """)
 
-st.title("A Alquimia Aplicada ao Seu Negócio")
-st.markdown("""
-### KPIs como bússolas, dados como chaves escondidas.
-Descubra o **ouro** que já existe por trás dos seus números.
-
-Empresas modernas precisam de **modelos sob medida**:  
-não apenas relatórios, mas **ferramentas inteligentes** que revelam padrões, reduzem incertezas e criam novas oportunidades.  
-""")
-
 def load_bayesian_libs():
     """Carrega bibliotecas Bayesianas apenas quando necessário"""
     try:
@@ -332,13 +323,14 @@ def create_uncertainty_plot(bayesian_results):
     return fig
 
 def main():
-    # Título e descrição
-    st.title("🔬 Análise Bayesiana Completa")
-    st.markdown("""
-    ### Esse aplicativo modelo é um exemplo, cada negócio carece de soluções modeladas para cada fim específico, normalmente, melhoria nos numeros de conversão, custos e produção.
-    
-    Aqui vamos comparar a importância e incertezas associadas aos investimentos em Tik Tok e Snapchat Ads, e os efeitos das fases da lua (pense que seu negócio pode ter características muito distintas de outros, que pessoas que não são da área podem não entender, mesmo sua empresa.)
-    """)
+    # st.title("A Alquimia Aplicada ao Seu Negócio")
+st.markdown("""
+### KPIs como bússolas, dados como chaves escondidas.
+Descubra o **ouro** que já existe por trás dos seus números.
+
+Empresas modernas precisam de **modelos sob medida**:  
+não apenas relatórios, mas **ferramentas inteligentes** que revelam padrões, reduzem incertezas e criam novas oportunidades.  
+""")
     
     st.markdown("---")
 
