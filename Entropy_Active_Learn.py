@@ -16,21 +16,56 @@ plt.rcParams['font.sans-serif'] = ['DejaVu Sans', 'Arial', 'Helvetica']
 
 # Configuração da página
 st.set_page_config(
-    page_title="Entropy Business Intelligence",
-    page_icon="🔬",
+    page_title="Roça do João - ML Intelligence",
+    page_icon="🌾",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-st.title("🔬 Análise Bayesiana Inteligente")
-st.markdown("""
-### Explore decisões de investimento com ciência de dados
-Este aplicativo mostra um modelo de análise Bayesiana, mas lembre-se: cada negócio é único e requer soluções personalizadas.  
-Aqui vamos comparar o impacto e a incerteza de investir em **TikTok Ads** e **Snapchat Ads**, considerando até fatores inusitados, como as fases da lua 🌙.  
-O objetivo é ajudá-lo a entender como decisões podem variar de acordo com diferentes cenários — insights que podem não ser óbvios para quem não conhece a área.
+st.title("🌾 Análise Inteligente - Roça do João")
 
-Configure o dataset no painel lateral ou inicie o modelo com o dataset de exemplo mesmo
-""")
+def show_header():
+    """Exibe o cabeçalho personalizado da Roça do João"""
+    st.markdown("""
+    ### 🚀 Transforme dados da fazenda em decisões inteligentes para maximizar cada safra
+
+    Este aplicativo demonstra como a ciência de dados pode revolucionar o agronegócio, 
+    analisando desde investimentos em marketing digital até fatores climáticos e até mesmo 
+    tradições rurais como as fases da lua 🌙.
+
+    **O Desafio do João:** Como otimizar investimentos e operações em cada safra de 8 meses?
+    - 🎯 **Marketing Digital:** TikTok da neta vs Google Ads tradicional
+    - 🌍 **Exportação:** Contratos internacionais que multiplicam receita  
+    - 🌦️ **Clima:** Chuva, sol e temperatura - os verdadeiros chefes da fazenda
+    - 🌙 **Tradição:** Será que plantar na lua crescente realmente funciona?
+    - 💰 **Economia:** Preços do feijão e custos dos insumos
+
+    **Configure seus dados no painel lateral ou explore o dataset de exemplo**
+    """)
+    
+    # Metrics importantes do João
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        st.metric("🌾 Hectares", "45.3", "±8")
+    with col2:
+        st.metric("📅 Ciclo Safra", "8 meses", "")
+    with col3:
+        st.metric("💰 Receita Média", "R$ 85k", "por safra")
+    with col4:
+        st.metric("📈 ROI TikTok", "280%", "vs Google 180%")
+    
+    st.markdown("""
+    ---
+    *"Na roça, cada decisão conta. Com dados, João não depende mais só da sorte e da experiência - 
+    ele tem ciência para maximizar cada safra."*
+
+    **🚀 Empresas agrícolas modernas precisam de:**
+    - Modelos preditivos para planejar safras
+    - Análise de ROI em marketing rural  
+    - Otimização de recursos baseada em dados
+    - Redução de riscos climáticos e econômicos
+    ---
+    """)
 
 def load_bayesian_libs():
     """Carrega bibliotecas Bayesianas apenas quando necessário"""
@@ -44,39 +79,104 @@ def load_bayesian_libs():
         return None, None, False
 
 def generate_sample_data():
-    """Gera dados de exemplo mais realistas"""
+    """Gera dados realistas da Roça do João - Ciclo de 8 meses por safra"""
     np.random.seed(42)
-    n_samples = 100
+    n_samples = 120  # 10 anos de dados (120 safras de 8 meses)
     
-    # Features de entrada
-    visitantes_tiktok = np.random.poisson(13000, n_samples)
-    visitantes_snapchat = np.random.poisson(9000, n_samples)
-    ads_tiktok = np.random.exponential(2800, n_samples)
-    ads_snapchat = np.random.exponential(2000, n_samples)
-    feedback_feeling = np.random.normal(7.5, 1.0, n_samples)
-    fase_lunar = np.random.choice(['Nova', 'Crescente', 'Cheia', 'Minguante'], n_samples)
-    dia_semana = np.random.randint(0, 7, n_samples)
+    # === FEATURES DE MARKETING DIGITAL ===
+    visitas_site = np.random.poisson(2500, n_samples)  # Visitas no site da fazenda
+    prod_gourmet_vendas = np.random.poisson(850, n_samples)  # Vendas de produtos especiais (feijão orgânico, etc)
+    ads_tiktok = np.random.exponential(1200, n_samples)  # Investimento TikTok (neta do João)
+    ads_google = np.random.exponential(800, n_samples)   # Ads no Google
     
-    # Target com relação realista
-    vendas = (
-        0.01 * visitantes_tiktok +
-        0.015 * visitantes_snapchat +
-        0.1 * ads_tiktok +
-        0.12 * ads_snapchat +
-        50 * feedback_feeling +
-        np.random.normal(0, 50, n_samples)
+    # === FEATURES DE EXPORTAÇÃO ===
+    contratos_export = np.random.poisson(12, n_samples)  # Número de contratos de exportação
+    
+    # === FEATURES CLIMÁTICAS (CRUCIAL NO AGRO) ===
+    chuva_mm_safra = np.random.gamma(4, 50, n_samples)  # Chuva total na safra (mm)
+    temp_media_safra = np.random.normal(24, 3, n_samples)  # Temperatura média (°C)
+    dias_sol_safra = np.random.normal(140, 20, n_samples)  # Dias de sol na safra
+    
+    # === FEATURES LUNARES (TRADIÇÃO RURAL) ===
+    fase_lua_plantio = np.random.choice(['Nova', 'Crescente', 'Cheia', 'Minguante'], n_samples)
+    fase_lua_colheita = np.random.choice(['Nova', 'Crescente', 'Cheia', 'Minguante'], n_samples)
+    
+    # === FEATURES ECONÔMICAS ===
+    preco_feijao_saca = np.random.normal(180, 25, n_samples)  # Preço da saca (R$)
+    custo_fertilizante = np.random.normal(2500, 300, n_samples)  # Custo fertilizante por hectare
+    
+    # === FEATURES OPERACIONAIS ===
+    hectares_plantados = np.random.normal(45, 8, n_samples)  # Área plantada
+    funcionarios_safra = np.random.poisson(8, n_samples)  # Número de funcionários
+    
+    # === VARIÁVEL TARGET: VENDAS POR SAFRA ===
+    # Simulando uma relação complexa e realista
+    vendas_base = (
+        # Marketing digital (impacto moderado)
+        0.8 * visitas_site +
+        1.2 * prod_gourmet_vendas +
+        0.3 * ads_tiktok +
+        0.4 * ads_google +
+        
+        # Exportação (alto impacto)
+        800 * contratos_export +
+        
+        # Clima (MUITO importante no agro)
+        2.5 * chuva_mm_safra +
+        50 * (temp_media_safra - 20) +  # Temperatura ideal ~20-25°C
+        8 * dias_sol_safra +
+        
+        # Economia
+        45 * preco_feijao_saca +
+        -0.8 * custo_fertilizante +
+        
+        # Operacional
+        450 * hectares_plantados +
+        120 * funcionarios_safra +
+        
+        # Ruído realista
+        np.random.normal(0, 3000, n_samples)
     )
-    vendas = np.maximum(vendas, 0)  # Garantir valores positivos
     
+    # Ajustes por fase da lua (baseado em crenças populares rurais)
+    lua_bonus_plantio = np.where(fase_lua_plantio == 'Crescente', 1500, 
+                        np.where(fase_lua_plantio == 'Cheia', 1200, 0))
+    lua_bonus_colheita = np.where(fase_lua_colheita == 'Cheia', 2000,
+                         np.where(fase_lua_colheita == 'Minguante', -800, 0))
+    
+    vendas_safra = vendas_base + lua_bonus_plantio + lua_bonus_colheita
+    vendas_safra = np.maximum(vendas_safra, 5000)  # Minimum viable safra
+    
+    # === CRIAR DATAFRAME ===
     data = pd.DataFrame({
-        'visitantes_tiktok': visitantes_tiktok,
-        'visitantes_snapchat': visitantes_snapchat,
-        'ads_tiktok': ads_tiktok,
-        'ads_snapchat': ads_snapchat,
-        'feedback_feeling': feedback_feeling,
-        'fase_lunar': fase_lunar,
-        'dia_semana': dia_semana,
-        'vendas': vendas
+        # Marketing Digital
+        'visitas_site_ciclo': visitas_site.astype(int),
+        'prod_gourmet_vendas': prod_gourmet_vendas.astype(int),
+        'ads_tiktok_invest': ads_tiktok.round(0).astype(int),
+        'ads_google_invest': ads_google.round(0).astype(int),
+        
+        # Exportação
+        'contratos_export': contratos_export,
+        
+        # Clima
+        'chuva_mm_safra': chuva_mm_safra.round(1),
+        'temp_media_safra': temp_media_safra.round(1),
+        'dias_sol_safra': dias_sol_safra.round(0).astype(int),
+        
+        # Lunar
+        'fase_lua_plantio': fase_lua_plantio,
+        'fase_lua_colheita': fase_lua_colheita,
+        
+        # Econômico
+        'preco_feijao_saca': preco_feijao_saca.round(2),
+        'custo_fertilizante_ha': custo_fertilizante.round(0).astype(int),
+        
+        # Operacional
+        'hectares_plantados': hectares_plantados.round(1),
+        'funcionarios_safra': funcionarios_safra,
+        
+        # TARGET
+        'vendas_safra_reais': vendas_safra.round(0).astype(int)
     })
     
     return data
@@ -96,8 +196,8 @@ def preprocess_data(data):
         le = LabelEncoder()
         data_processed[col] = le.fit_transform(data_processed[col])
 
-    # Identificar target
-    possible_targets = ['vendas', 'conversoes', 'sales', 'target', 'y']
+    # Identificar target - agora procura por 'vendas_safra_reais' primeiro
+    possible_targets = ['vendas_safra_reais', 'vendas', 'conversoes', 'sales', 'target', 'y']
     target_col = None
     
     for target in possible_targets:
@@ -220,20 +320,17 @@ def compute_entropy(residuals, bins=30):
 
 def show_entropy_section(y_true, y_pred_mle, y_pred_map, y_pred_bayes=None):
     """Mostra análise de entropia das distribuições de erro"""
-    st.header("5️⃣ Análise de Entropia (Incerteza)")
+    st.header("5️⃣ Análise de Entropia (Incerteza na Fazenda)")
     st.markdown("""
-    Entropia mede a **incerteza de uma distribuição**.  
-    Distribuições mais espalhadas (maior variância) → maior entropia.  
-    Distribuições concentradas → menor entropia.  
+    Entropia mede a **incerteza de uma distribuição** - crucial para o agronegócio!  
+    
+    **🌾 Para a Roça do João:**
+    - **Baixa entropia** → Previsões confiáveis → João pode planejar com segurança
+    - **Alta entropia** → Muita incerteza → João precisa de mais dados ou fatores externos
     
     Fórmula da entropia diferencial:
     $$
     H(p) = -\int p(z) \\ln p(z) \\, dz
-    $$
-    
-    Para uma Gaussiana multivariada:
-    $$
-    H(\\mathcal{N}(\\mu, \\Sigma)) = \\tfrac{d}{2} \\ln(2 \\pi e |\\Sigma|)
     $$
     """)
 
@@ -243,8 +340,8 @@ def show_entropy_section(y_true, y_pred_mle, y_pred_map, y_pred_bayes=None):
     entropy_map = compute_entropy(residuals_map)
 
     entropies = {
-        "MLE": entropy_mle,
-        "MAP": entropy_map
+        "MLE (Linear)": entropy_mle,
+        "MAP (Ridge)": entropy_map
     }
 
     if y_pred_bayes is not None:
@@ -253,39 +350,44 @@ def show_entropy_section(y_true, y_pred_mle, y_pred_map, y_pred_bayes=None):
         entropies["Bayesiano"] = entropy_bayes
 
     # Mostrar resultados
-    st.subheader("📊 Entropia das Distribuições de Resíduos")
+    st.subheader("📊 Entropia dos Modelos de Predição")
     entropy_df = pd.DataFrame(entropies.items(), columns=["Modelo", "Entropia"])
     st.dataframe(entropy_df)
 
+    # Interpretação para o João
+    best_model = entropy_df.loc[entropy_df['Entropia'].idxmin(), 'Modelo']
+    st.success(f"🏆 **Melhor modelo para João:** {best_model} (menor incerteza)")
+
     # Plot
     fig, ax = plt.subplots(figsize=(8, 5))
-    ax.bar(entropies.keys(), entropies.values(), color="skyblue", alpha=0.8)
+    ax.bar(entropies.keys(), entropies.values(), color="green", alpha=0.7)
     ax.set_ylabel("Entropia (Incerteza)")
-    ax.set_title("Comparação de Entropia entre Modelos")
+    ax.set_title("🌾 Incerteza dos Modelos - Roça do João")
     ax.grid(True, alpha=0.3)
+    plt.xticks(rotation=45)
     plt.tight_layout()
     st.pyplot(fig)
 
 def create_comparison_plot(mle_results, map_results, bayesian_results=None):
-    """Cria gráfico de comparação"""
-    fig, ax = plt.subplots(figsize=(12, 6))
+    """Cria gráfico de comparação específico para agronegócio"""
+    fig, ax = plt.subplots(figsize=(14, 8))
     
     features = mle_results['Feature'].values
     x_pos = np.arange(len(features))
     
     if bayesian_results is not None:
         width = 0.25
-        ax.bar(x_pos - width, mle_results['Coeficiente'], width, label='MLE', alpha=0.8, color='skyblue')
+        ax.bar(x_pos - width, mle_results['Coeficiente'], width, label='MLE', alpha=0.8, color='lightblue')
         ax.bar(x_pos, map_results['Coeficiente'], width, label='MAP (Ridge)', alpha=0.8, color='lightgreen')
-        ax.bar(x_pos + width, bayesian_results['mean'], width, label='Bayesian', alpha=0.8, color='salmon')
+        ax.bar(x_pos + width, bayesian_results['mean'], width, label='Bayesian', alpha=0.8, color='orange')
     else:
         width = 0.35
-        ax.bar(x_pos - width/2, mle_results['Coeficiente'], width, label='MLE', alpha=0.8, color='skyblue')
+        ax.bar(x_pos - width/2, mle_results['Coeficiente'], width, label='MLE', alpha=0.8, color='lightblue')
         ax.bar(x_pos + width/2, map_results['Coeficiente'], width, label='MAP (Ridge)', alpha=0.8, color='lightgreen')
 
-    ax.set_xlabel('Features')
-    ax.set_ylabel('Valor do Coeficiente')
-    ax.set_title('Comparação dos Métodos de Estimação')
+    ax.set_xlabel('Fatores da Fazenda')
+    ax.set_ylabel('Impacto nas Vendas da Safra (R$)')
+    ax.set_title('🌾 Roça do João - Comparação dos Fatores de Impacto')
     ax.set_xticks(x_pos)
     ax.set_xticklabels(features, rotation=45, ha='right')
     ax.legend()
@@ -296,11 +398,11 @@ def create_comparison_plot(mle_results, map_results, bayesian_results=None):
     return fig
 
 def create_uncertainty_plot(bayesian_results):
-    """Cria gráfico de incerteza Bayesiana"""
+    """Cria gráfico de incerteza Bayesiana para agronegócio"""
     if bayesian_results is None:
         return None
     
-    fig, ax = plt.subplots(figsize=(10, 8))
+    fig, ax = plt.subplots(figsize=(12, 10))
     
     features = bayesian_results['Feature'].values
     means = bayesian_results['mean'].values
@@ -311,13 +413,13 @@ def create_uncertainty_plot(bayesian_results):
 
     # Plot error bars
     ax.errorbar(means, y_pos, xerr=[means - lower, upper - means], 
-                fmt='o', capsize=5, capthick=2, markersize=8, color='darkblue')
+                fmt='o', capsize=5, capthick=2, markersize=8, color='darkgreen')
     
     ax.set_yticks(y_pos)
     ax.set_yticklabels(features)
-    ax.set_xlabel('Valor do Coeficiente')
-    ax.set_title('Distribuições Posteriores com Intervalos de Credibilidade (94% HDI)')
-    ax.axvline(x=0, color='red', linestyle='--', alpha=0.7, label='Zero')
+    ax.set_xlabel('Impacto nas Vendas (R$)')
+    ax.set_title('🌾 Roça do João - Incerteza dos Fatores (Intervalo de Credibilidade 94%)')
+    ax.axvline(x=0, color='red', linestyle='--', alpha=0.7, label='Sem Impacto')
     ax.grid(True, alpha=0.3)
     ax.legend()
     
@@ -325,33 +427,36 @@ def create_uncertainty_plot(bayesian_results):
     return fig
 
 def main():
-    # st.title("A Alquimia Aplicada ao Seu Negócio")
+    # Mostrar cabeçalho personalizado
+    show_header()
+    
     st.markdown("""
-### KPIs como bússolas, dados como chaves escondidas.
-Descubra o **ouro** que já existe por trás dos seus números.
+    ### 🔑 KPIs como bússolas, dados como chaves escondidas.
+    Descubra o **ouro verde** que já existe por trás dos números da fazenda.
 
-Empresas modernas precisam de **modelos sob medida**:  
-não apenas relatórios, mas **ferramentas inteligentes** que revelam padrões, reduzem incertezas e criam novas oportunidades.  
-""")
+    Fazendas modernas precisam de **modelos sob medida**:  
+    não apenas relatórios de safra, mas **ferramentas inteligentes** que revelam padrões climáticos, 
+    otimizam investimentos e reduzem riscos na agricultura.  
+    """)
     
     st.markdown("---")
 
     # Sidebar
-    st.sidebar.header("🎛️ Configurações")
+    st.sidebar.header("🎛️ Configurações da Análise")
     
     # Opção de dados
     data_source = st.sidebar.selectbox(
         "📊 Escolha a fonte dos dados:",
-        ["Dados de Exemplo", "Upload de Arquivo"]
+        ["Dados da Roça do João (Exemplo)", "Upload de Arquivo"]
     )
     
     # Carregar dados
     data = None
     if data_source == "Upload de Arquivo":
         uploaded_file = st.sidebar.file_uploader(
-            "📁 Faça upload do seu CSV", 
+            "📁 Faça upload do seu CSV agrícola", 
             type=['csv'],
-            help="O arquivo deve conter uma coluna target (vendas, conversoes, etc.)"
+            help="O arquivo deve conter dados de safras com uma coluna target (vendas, receita, etc.)"
         )
         if uploaded_file:
             try:
@@ -361,34 +466,48 @@ não apenas relatórios, mas **ferramentas inteligentes** que revelam padrões, 
                 st.sidebar.error(f"❌ Erro: {e}")
                 return
         else:
-            st.info("📂 Faça upload de um arquivo CSV para começar")
+            st.info("📂 Faça upload de um arquivo CSV para analisar seus próprios dados agrícolas")
             return
     else:
         data = generate_sample_data()
 
     # Mostrar informações dos dados
-    st.header("📊 Dados Carregados")
+    st.header("📊 Dataset da Fazenda Carregado")
     
     col1, col2, col3, col4 = st.columns(4)
     with col1:
-        st.metric("📈 Amostras", len(data))
+        st.metric("📈 Safras Analisadas", len(data))
     with col2:
-        st.metric("📋 Colunas", data.shape[1])
+        st.metric("📋 Variáveis", data.shape[1])
     with col3:
-        st.metric("💾 Memória", f"{data.memory_usage(deep=True).sum()/1024:.0f} KB")
+        receita_media = data['vendas_safra_reais'].mean() if 'vendas_safra_reais' in data.columns else 0
+        st.metric("💰 Receita Média", f"R$ {receita_media:,.0f}")
     with col4:
         missing = data.isnull().sum().sum()
-        st.metric("❓ Valores Faltantes", missing)
+        st.metric("❓ Dados Faltantes", missing)
 
     # Preview dos dados
-    with st.expander("👀 Visualizar Dados", expanded=False):
-        tab1, tab2 = st.tabs(["📋 Dados", "📊 Estatísticas"])
+    with st.expander("👀 Visualizar Dados da Fazenda", expanded=False):
+        tab1, tab2, tab3 = st.tabs(["📋 Dados Brutos", "📊 Estatísticas", "🌾 Insights Rápidos"])
         
         with tab1:
-            st.dataframe(data)
+            st.dataframe(data, use_container_width=True)
         
         with tab2:
-            st.dataframe(data.describe())
+            st.dataframe(data.describe(), use_container_width=True)
+            
+        with tab3:
+            if 'vendas_safra_reais' in data.columns:
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.write("**🏆 Melhor Safra:**")
+                    melhor_safra = data.loc[data['vendas_safra_reais'].idxmax()]
+                    st.write(f"Receita: R$ {melhor_safra['vendas_safra_reais']:,.0f}")
+                    
+                with col2:
+                    st.write("**📉 Pior Safra:**")
+                    pior_safra = data.loc[data['vendas_safra_reais'].idxmin()]
+                    st.write(f"Receita: R$ {pior_safra['vendas_safra_reais']:,.0f}")
 
     # Configurações da análise
     st.sidebar.markdown("---")
@@ -402,10 +521,10 @@ não apenas relatórios, mas **ferramentas inteligentes** que revelam padrões, 
         tune = st.sidebar.slider("🔧 Tune:", 500, 2000, 1000, 100)
         st.sidebar.info(f"Total de amostras: {draws * 2} (2 chains)")
 
-    # BOTÃO PRINCIPAL - SÓ AQUI QUE EXECUTA ALGO!
+    # BOTÃO PRINCIPAL
     st.markdown("---")
     
-    if st.button("🚀 **INICIAR ANÁLISE COMPLETA**", type="primary"):
+    if st.button("🚀 **INICIAR ANÁLISE COMPLETA DA FAZENDA**", type="primary"):
         
         # Container para toda a análise
         analysis_container = st.container()
@@ -418,7 +537,7 @@ não apenas relatórios, mas **ferramentas inteligentes** que revelam padrões, 
             
             try:
                 # 1. Preprocessamento
-                status_text.text("🔄 Preparando dados...")
+                status_text.text("🔄 Preparando dados da fazenda...")
                 progress_bar.progress(10)
                 
                 processed_data, features, target = preprocess_data(data)
@@ -429,36 +548,48 @@ não apenas relatórios, mas **ferramentas inteligentes** que revelam padrões, 
                 progress_bar.progress(20)
                 
                 # 2. MLE Analysis
-                status_text.text("🔍 Executando análise MLE...")
+                status_text.text("🔍 Executando análise MLE (Linear)...")
                 progress_bar.progress(35)
                 
                 mle_results, mle_r2, mle_mse, scaler, mle_model = run_mle_analysis(processed_data, features, target)
                 
-                st.header("1️⃣ Análise MLE (Maximum Likelihood)")
+                st.header("1️⃣ Análise Linear (MLE) - Relações Diretas")
+                st.markdown("*Mostra o impacto linear de cada fator nas vendas da safra*")
+                
                 col1, col2 = st.columns([3, 1])
                 
                 with col1:
-                    st.dataframe(mle_results)
+                    st.dataframe(mle_results, use_container_width=True)
                 with col2:
-                    st.metric("R² Score", f"{mle_r2:.3f}")
-                    st.metric("MSE", f"{mle_mse:.1f}")
+                    st.metric("📊 R² Score", f"{mle_r2:.3f}")
+                    st.metric("📏 MSE", f"{mle_mse:,.0f}")
+                    
+                    # Interpretação para João
+                    if mle_r2 > 0.8:
+                        st.success("🎯 Excelente ajuste!")
+                    elif mle_r2 > 0.6:
+                        st.warning("⚠️ Ajuste moderado")
+                    else:
+                        st.error("❌ Ajuste ruim")
                 
                 progress_bar.progress(50)
                 
                 # 3. MAP Analysis
-                status_text.text("🎯 Executando análise MAP...")
+                status_text.text("🎯 Executando análise MAP (Ridge)...")
                 progress_bar.progress(60)
                 
                 map_results, map_r2, map_mse, map_model = run_map_analysis(processed_data, features, target, scaler)
                 
-                st.header("2️⃣ Análise MAP (Ridge Regression)")
+                st.header("2️⃣ Análise Regularizada (MAP) - Controle de Overfitting")
+                st.markdown("*Modelo mais conservador, evita superajuste aos dados históricos*")
+                
                 col1, col2 = st.columns([3, 1])
                 
                 with col1:
-                    st.dataframe(map_results)
+                    st.dataframe(map_results, use_container_width=True)
                 with col2:
-                    st.metric("R² Score", f"{map_r2:.3f}")
-                    st.metric("MSE", f"{map_mse:.1f}")
+                    st.metric("📊 R² Score", f"{map_r2:.3f}")
+                    st.metric("📏 MSE", f"{map_mse:,.0f}")
                 
                 progress_bar.progress(75)
                 
@@ -474,112 +605,21 @@ não apenas relatórios, mas **ferramentas inteligentes** que revelam padrões, 
                     if bayesian_output:
                         bayesian_results, trace = bayesian_output
                         
-                        st.header("3️⃣ Análise Bayesiana Completa")
-                        st.dataframe(bayesian_results)
+                        st.header("3️⃣ Análise Bayesiana - Incerteza Quantificada")
+                        st.markdown("*Mostra não apenas o impacto, mas também a confiança em cada estimativa*")
                         
-                        # Relatório Bayesiano
-                        st.subheader("📋 Insights Bayesianos")
+                        st.dataframe(bayesian_results, use_container_width=True)
+                        
+                        # Relatório Bayesiano específico para João
+                        st.subheader("📋 Insights para a Roça do João")
                         
                         # Features mais importantes
-                        st.write("**🎯 Features Mais Relevantes:**")
+                        st.write("**🎯 Fatores Mais Importantes para as Vendas:**")
                         top_features = bayesian_results.nlargest(3, '|Mean|')
-                        for _, row in top_features.iterrows():
-                            uncertainty_level = "📍 Baixa" if row['sd'] < 1.0 else "⚠️ Alta"
-                            st.write(f"• **{row['Feature']}**: {row['mean']:.3f} (±{row['sd']:.3f}) - Incerteza: {uncertainty_level}")
-                        
-                        # Features com alta incerteza
-                        high_uncertainty = bayesian_results[bayesian_results['sd'] > 1.0]
-                        if len(high_uncertainty) > 0:
-                            st.write("**⚠️ Features que Precisam de Mais Dados:**")
-                            for _, row in high_uncertainty.iterrows():
-                                if row['hdi_3%'] < 0 < row['hdi_97%']:
-                                    rec = "❓ Efeito indeterminado"
-                                elif row['hdi_3%'] > 0:
-                                    rec = "📈 Provavelmente positivo"
-                                else:
-                                    rec = "📉 Provavelmente negativo"
-                                st.write(f"• **{row['Feature']}**: {rec} (HDI: [{row['hdi_3%']:.2f}, {row['hdi_97%']:.2f}])")
-                
-                progress_bar.progress(90)
-                
-                # 5. Visualizações
-                status_text.text("📊 Criando visualizações...")
-                
-                st.header("4️⃣ Visualizações Comparativas")
-                
-                # Gráfico de comparação
-                fig1 = create_comparison_plot(mle_results, map_results, bayesian_results)
-                st.pyplot(fig1)
-                
-                # Gráfico de incerteza (se Bayesian disponível)
-                if bayesian_results is not None:
-                    fig2 = create_uncertainty_plot(bayesian_results)
-                    if fig2:
-                        st.pyplot(fig2)
-
-                # 6. Entropia
-                status_text.text("📊 Calculando entropia dos modelos...")
-                progress_bar.progress(95)
-
-                # Predições dos modelos para análise de entropia
-                X_scaled = scaler.transform(processed_data[features])
-                y_true = processed_data[target]
-                y_pred_mle = mle_model.predict(X_scaled)
-                y_pred_map = map_model.predict(X_scaled)
-
-                # Por enquanto, não temos predições diretas do Bayesiano
-                show_entropy_section(
-                    y_true=y_true,
-                    y_pred_mle=y_pred_mle,
-                    y_pred_map=y_pred_map,
-                    y_pred_bayes=None
-                )
-                
-                # Finalizar
-                progress_bar.progress(100)
-                status_text.text("✅ Análise concluída!")
-                
-                # Mensagem de sucesso
-                st.balloons()
-                st.success("**Análise completa! Todos os modelos foram executados com sucesso.**")
-                st.success("✨ Imagine o que podemos fazer com **os dados da sua empresa**.")
-                
-                # Mensagem de contato
-                st.markdown("""
-                💡 De KPI em KPI, desenhamos o **modelo que você precisa**.  
-                📈 Do campo ao mercado digital, transformamos incerteza em clareza.  
-
-                👉 Entre em contato e vamos descobrir juntos as **chaves escondidas do seu negócio**  
-                📧 [contato@plexonatural.com](mailto:contato@plexonatural.com)
-                """)
-                
-                # Download
-                if bayesian_results is not None:
-                    csv_data = bayesian_results.to_csv(index=False)
-                    st.download_button(
-                        label="📥 Baixar Resultados Bayesianos",
-                        data=csv_data,
-                        file_name=f"analise_bayesiana_{pd.Timestamp.now().strftime('%Y%m%d_%H%M')}.csv",
-                        mime="text/csv"
-                    )
-                
-            except Exception as e:
-                progress_bar.progress(0)
-                status_text.text("❌ Erro na análise")
-                st.error(f"**Erro durante a análise:** {str(e)}")
-                
-                with st.expander("🔍 Detalhes do Erro"):
-                    import traceback
-                    st.code(traceback.format_exc())
-
-    # Rodapé informativo
-    st.markdown("---")
-    st.markdown("""
-    <div style='text-align: center; color: gray;'>
-    <b>Dica:</b> Para melhores resultados, certifique-se de que seus dados tenham pelo menos 50 amostras<br>
-    <b>Algoritmos:</b> Scikit-learn (MLE/MAP) + PyMC (Bayesian MCMC)
-    </div>
-    """, unsafe_allow_html=True)
+                        for idx, (_, row) in enumerate(top_features.iterrows(), 1):
+                            uncertainty_level = "📍 Baixa" if row['sd'] < row['mean']/3 else "⚠️ Alta"
+                            impacto = "positivo 📈" if row['mean'] > 0 else "negativo 📉"
+                            st.write(f"**{idx}. {row['Feature']}**: Impacto {impacto} de R
 
 # IMPORTANTE: Só executar main() se for o arquivo principal
 if __name__ == "__main__":
