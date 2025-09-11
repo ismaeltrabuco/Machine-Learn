@@ -16,10 +16,21 @@ plt.rcParams['font.sans-serif'] = ['DejaVu Sans', 'Arial', 'Helvetica']
 
 # Configuração da página
 st.set_page_config(
-    page_title="Análise Bayesiana Completa",
-    page_icon="🔬",
+   st.set_page_config(page_title="Entropy Business Intelligence", page_icon="🔬",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="expanded")
+
+st.title("A Alquimia Aplicada ao Seu Negócio")
+st.markdown("""
+### KPIs como bússolas, dados como chaves escondidas.
+Descubra o **ouro** que já existe por trás dos seus números.
+
+Empresas modernas precisam de **modelos sob medida**:  
+não apenas relatórios, mas **ferramentas inteligentes** que revelam padrões, reduzem incertezas e criam novas oportunidades.  
+""")
+
+
+    
 )
 
 def load_bayesian_libs():
@@ -318,12 +329,9 @@ def main():
     # Título e descrição
     st.title("🔬 Análise Bayesiana Completa")
     st.markdown("""
-    ### Comparação entre MLE, MAP e Inferência Bayesiana
+    ### Esse aplicativo modelo é um exemplo, cada negócio carece de soluções modeladas para cada fim específico, normalmente, melhoria nos numeros de conversão, custos e produção.
     
-    Este aplicativo compara três abordagens estatísticas:
-    - **MLE (Maximum Likelihood Estimation)**: Estimação clássica de máxima verossimilhança
-    - **MAP (Maximum A Posteriori)**: Estimação regularizada (Ridge Regression)  
-    - **Bayesian**: Inferência Bayesiana completa com quantificação de incerteza
+    Aqui vamos comparar a importância e incertezas associadas aos investimentos em Tik Tok e Snapchat Ads, e os efeitos das fases da lua (pense que seu negócio pode ter características muito distintas de outros, que pessoas que não são da área podem não entender, mesmo sua empresa.)
     """)
     
     st.markdown("---")
@@ -533,7 +541,15 @@ def main():
                 
                 # Mensagem de sucesso
                 st.balloons()
-                st.success("🎉 **Análise completa! Todos os modelos foram executados com sucesso.**")
+                st.success("**Análise completa! Todos os modelos foram executados com sucesso.**")
+                st.success("✨ Imagine o que podemos fazer com **os dados da sua empresa**.")
+st.markdown("""
+💡 De KPI em KPI, desenhamos o **modelo que você precisa**.  
+📈 Do campo ao mercado digital, transformamos incerteza em clareza.  
+
+👉 Entre em contato e vamos descobrir juntos as **chaves escondidas do seu negócio** contato@plexonatural.com.
+""")
+
                 
                 # Download
                 if bayesian_results is not None:
