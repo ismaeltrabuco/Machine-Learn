@@ -28,6 +28,8 @@ st.markdown("""
 Este aplicativo mostra um modelo de análise Bayesiana, mas lembre-se: cada negócio é único e requer soluções personalizadas.  
 Aqui vamos comparar o impacto e a incerteza de investir em **TikTok Ads** e **Snapchat Ads**, considerando até fatores inusitados, como as fases da lua 🌙.  
 O objetivo é ajudá-lo a entender como decisões podem variar de acordo com diferentes cenários — insights que podem não ser óbvios para quem não conhece a área.
+
+Configure o dataset no painel lateral ou inicie o modelo com o dataset de exemplo mesmo
 """)
 
 def load_bayesian_libs():
