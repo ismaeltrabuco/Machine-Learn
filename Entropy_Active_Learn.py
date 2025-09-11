@@ -579,14 +579,14 @@ st.markdown("""
                     import traceback
                     st.code(traceback.format_exc())
 
-    # Rodapé informativo
-st.markdown("---")
-st.markdown("""
-<div style='text-align: center; color: gray;'>
-<b>Dica:</b> Para melhores resultados, certifique-se de que seus dados tenham pelo menos 50 amostras<br>
-<b>Algoritmos:</b> Scikit-learn (MLE/MAP) + PyMC (Bayesian MCMC)
-</div>
-""", unsafe_allow_html=True)
+ # Rodapé informativo
+    st.markdown("---")
+    st.markdown("""
+    <div style='text-align: center; color: gray;'>
+    <b>Dica:</b> Para melhores resultados, certifique-se de que seus dados tenham pelo menos 50 amostras<br>
+    <b>Algoritmos:</b> Scikit-learn (MLE/MAP) + PyMC (Bayesian MCMC)
+    </div>
+    """, unsafe_allow_html=True)
 
 # IMPORTANTE: Só executar main() se for o arquivo principal
 if __name__ == "__main__":
