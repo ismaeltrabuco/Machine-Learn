@@ -555,10 +555,8 @@ st.markdown("""
 📈 Do campo ao mercado digital, transformamos incerteza em clareza.  
 
 👉 Entre em contato e vamos descobrir juntos as **chaves escondidas do seu negócio** contato@plexonatural.com.
-""")
-except Exception as e:
+""" except Exception as e:
     st.error(f"Ocorreu um erro na apresentação dos resultados: {e}")
-
                 
                 # Download
                 if bayesian_results is not None:
