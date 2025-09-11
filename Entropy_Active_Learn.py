@@ -559,7 +559,8 @@ st.markdown("""
 except Exception as e:
     st.error(f"Ocorreu um erro na apresentação dos resultados: {e}") 
 
-👉 Entre em contato e vamos descobrir juntos as **chaves escondidas do seu negócio** [contato@plexonatural.com].
+👉 Entre em contato e vamos descobrir juntos as **chaves escondidas do seu negócio**  
+[contato@plexonatural.com](mailto:contato@plexonatural.com).
 """ except Exception as e:
     st.error(f"Ocorreu um erro na apresentação dos resultados: {e}")
                 
