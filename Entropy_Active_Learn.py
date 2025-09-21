@@ -5,7 +5,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression, Ridge
+from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.metrics import r2_score, mean_squared_error
 import warnings
@@ -30,7 +30,7 @@ def generate_sample_data(seed=42):
     np.random.seed(seed)
     n_samples = 100
 
-    # Variáveis
+    # Variáveis contínuas
     prod_gourmet = np.random.poisson(850, n_samples)
     visitas_site = np.random.poisson(2500, n_samples)
     ads_google = np.random.exponential(900, n_samples)
@@ -38,10 +38,22 @@ def generate_sample_data(seed=42):
     chuva = np.random.gamma(4, 50, n_samples)
     hectares = np.random.normal(45, 8, n_samples)
 
-    # Produção em sacas
+    # Variáveis categóricas (lua)
+    fases = ['Nova', 'Crescente', 'Cheia', 'Minguante']
+    fase_lua_plantio = np.random.choice(fases, n_samples)
+    fase_lua_colheita = np.random.choice(fases, n_samples)
+
+    # Produção em sacas (lua influencia)
+    bonus_plantio = np.where(fase_lua_plantio == "Crescente", 300,
+                    np.where(fase_lua_plantio == "Cheia", 200, 0))
+    bonus_colheita = np.where(fase_lua_colheita == "Cheia", 400,
+                     np.where(fase_lua_colheita == "Minguante", -200, 0))
+
     producao_safra = (
         20 * hectares +
         2 * chuva +
+        bonus_plantio +
+        bonus_colheita +
         np.random.normal(0, 100, n_samples)
     ).astype(int)
 
@@ -68,6 +80,8 @@ def generate_sample_data(seed=42):
         "ads_tiktok": ads_tiktok.round(0).astype(int),
         "chuva_mm": chuva.round(1),
         "hectares": hectares.round(1),
+        "fase_lua_plantio": fase_lua_plantio,
+        "fase_lua_colheita": fase_lua_colheita,
         "producao_safra_sacas": producao_safra,
         "vendas_safra_reais": vendas,
         "lucro_liquido": lucro_liquido
@@ -81,7 +95,7 @@ def preprocess_data(data: pd.DataFrame, target: str):
     data_processed = data.copy()
     features = [c for c in data_processed.columns if c != target]
 
-    # Encodar se houver categóricas
+    # Encodar categóricas
     categorical_cols = data_processed.select_dtypes(include=['object']).columns
     for col in categorical_cols:
         le = LabelEncoder()
