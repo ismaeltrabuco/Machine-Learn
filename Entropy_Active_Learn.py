@@ -15,7 +15,7 @@ warnings.filterwarnings('ignore')
 # Configuração da Página
 # ======================
 st.set_page_config(
-    page_title="Roça do Seu João - ML do Rancho",
+    page_title="Roça do Seu João - Sabedoria do Rancho Texano",
     page_icon="🤠",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -131,7 +131,7 @@ def plot_scatter(x, y, xlabel, ylabel, color="blue"):
 def show_rancho_lessons(results, target_name="Vendas"):
     top_factors = results.nlargest(3, "Magnitude_Absoluta")
     lessons = [
-        f"🏜️ **Lições do Rancho**: '{feat}' é chave pra {target_name.lower()} — invista com sabedoria!",
+        f"🏜️ **Lições do Rancho**: '{top_factors['Feature'].iloc[0]}' é chave pra {target_name.lower()} — invista com sabedoria!",
         f"🌾 **Sabedoria Antiga**: '{top_factors['Feature'].iloc[1]}' mostra força na safra!",
         f"🤠 **Resistência**: '{top_factors['Feature'].iloc[2]}' reflete o espírito livre da roça!"
     ]
