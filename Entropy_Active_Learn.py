@@ -13,7 +13,7 @@ warnings.filterwarnings('ignore')
 # Configuração da Página
 # ======================
 st.set_page_config(
-    page_title="Roça do João - ML Intelligence",
+    page_title="Roça do Seu João",
     page_icon="🌾",
     layout="wide",
     initial_sidebar_state="expanded"
